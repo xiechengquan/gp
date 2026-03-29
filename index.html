@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>动态获取JSON文件内容</title>
+    <!-- 引入axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <button class="btn" onclick="start('sz')">获取JSON数据</button>
+    </div>
+
+    <script>
+        const start = async (type) => {
+            const list = []
+            for (let i = 0; i < 1; i++) {
+                console.log(666, i)
+                const targetUrl = 'https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData?page='+ i + '&num=100&sort=symbol&asc=1&node=' + type + '_a';
+                const res = await axios.get(targetUrl);
+                list.push(...res.data)
+                await setTimeout(2000);
+                if(res.data.length < 100) {
+                    break
+                }
+            }
+            console.log(777, list)
+            return list
+        }
+    </script>
+</body>
+</html>
