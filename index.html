@@ -10,6 +10,7 @@
 <body>
     <div class="container">
         <button class="btn" onclick="start('sz')">获取JSON数据</button>
+        <p id="result"></p>
     </div>
 
     <script>
@@ -1133,6 +1134,7 @@
                 console.log(4444, i)
             }
             console.log(666, list)
+            document.getElementById('result').innerText = list.join(', ')
             return list
         }
     </script>
