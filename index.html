@@ -10,7 +10,7 @@
 </head>
 <body>
     <div class="container">
-        <button class="btn" onclick="start()">获取JSON数据1</button>
+        <button class="btn" onclick="start()">获取JSON数据2</button>
         <p id="result"></p>
     </div>
 
@@ -18,16 +18,13 @@
         const sleep = (ms) => {
             return new Promise(resolve => setTimeout(resolve, ms));
         }
-        const getToday = async (type) => {
+        const getToday = async (type, num) => {
             const list = []
-            for (let i = 0; i < 100; i++) {
+            for (let i = 0; i <= num; i++) {
                 const targetUrl = 'https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData?page='+ i + '&num=100&sort=symbol&asc=1&node=' + type + '_a';
                 const res = await axios.get(targetUrl);
                 list.push(...res.data)
-                await sleep(2000);
-                if(res.data.length < 100) {
-                    break
-                }
+                await sleep(1800);
             }
             return list
         }
@@ -2099,8 +2096,8 @@
     "sz302132"
 ]
             const list = []
-            const szList = await getToday('sz');
-            const shList = await getToday('sh');
+            const szList = await getToday('sz', 29);
+            const shList = await getToday('sh', 18);
             const gpList = [...shList, ...szList]
             for (let i = 0; i < gpList.length; i++) {
                 const symbol = gpList[i].symbol
